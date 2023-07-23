@@ -19,7 +19,7 @@ import (
 // process for GeoIP databases.
 type Client struct {
 	config    *Config
-	getReader func() (database.Reader, error)
+	GetReader func() (database.Reader, error)
 	getWriter func() (database.Writer, error)
 	output    *log.Logger
 }
@@ -47,7 +47,7 @@ func NewClient(config *Config) *Client {
 
 	return &Client{
 		config:    config,
-		getReader: getReader,
+		GetReader: getReader,
 		getWriter: getWriter,
 		output:    log.New(os.Stdout, "", 0),
 	}
@@ -70,7 +70,7 @@ func (c *Client) Run(ctx context.Context) error {
 
 	jobProcessor := internal.NewJobProcessor(ctx, c.config.Parallelism)
 
-	reader, err := c.getReader()
+	reader, err := c.GetReader()
 	if err != nil {
 		return fmt.Errorf("initializing database reader: %w", err)
 	}

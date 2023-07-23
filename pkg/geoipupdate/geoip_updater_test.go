@@ -48,7 +48,7 @@ func TestClientOutput(t *testing.T) {
 	// create a fake client with a mocked database reader and writer.
 	c := &Client{
 		config: config,
-		getReader: func() (database.Reader, error) {
+		GetReader: func() (database.Reader, error) {
 			return &mockReader{i: 0, result: databases}, nil
 		},
 		getWriter: func() (database.Writer, error) {
